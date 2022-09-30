@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
+const cookieParser = require('cookie-parser')
 
 app.set("view engine", "ejs"); // setting ejs as view engine
 app.use(express.urlencoded({ extended: true })); // parse the body
+app.use(cookieParser());
 
 function generateRandomString() {
   return Math.random().toString(36).slice(2);
