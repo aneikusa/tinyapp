@@ -56,6 +56,11 @@ app.post("/urls", (req, res) => {
   res.redirect(`/urls/${id}`);
 }); //redirecting to longURL
 
+app.post("/urls/:id/delete", (req, res) => {
+  delete urlDatabase[req.params.id];
+  res.redirect("/");
+}); // delete route and redirect to urls
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
