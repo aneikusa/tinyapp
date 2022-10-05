@@ -10,14 +10,23 @@ app.use(cookieParser());
 
 function generateRandomString () {
   return Math.random().toString(36).slice(2);
-} // console.log(generateRandomString()); 
+}; // console.log(generateRandomString()); 
 
-const users = {};
+function getUserByEmail (usersObject, email) {
+  for (const user in usersObject) {
+    if (usersObject[user].email === email) {
+      return usersObject;
+    }
+  }
+  return null;
+}; // returns object if email exists
+
+const users = {}; //object that stores user information
 
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
-};
+}; // database for storing URLs in short forms
 
 app.get("/", (req, res) => {
   res.send("Hello!");
@@ -37,7 +46,6 @@ app.get("/urls", (req, res) => {
     user: user,
     urls: urlDatabase 
   };
-  console.log(req.cookies["user_id"])
   res.render("urls_index", templateVars);
 });
 
@@ -103,14 +111,22 @@ app.post("/register", (req, res) => {
 const userID = generateRandomString();
 const userEmail = req.body.email;
 const userPassword = req.body.password;
+
+if (!userEmail || !userPassword) {
+  res.status(400).send('Incorrect entry. Missing email or password.');
+} else if (getUserByEmail(users, userEmail) !== null) {
+  res.status(400).send("This email already exists");
+} else {
   users[userID] = {
     id: userID,
     email: userEmail,
     password: userPassword
-  }
+  };
 
-res.cookie("user_id", userID);
-res.redirect("/urls");
+  res.cookie("user_id", userID);
+  res.redirect("/urls");
+}
+
 });
 
 app.listen(PORT, () => {
