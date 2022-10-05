@@ -21,16 +21,9 @@
   <body>
     <%- include('partials/_header') %>
 
-    <main>
+    <main style="margin: 1em;">
       <h3>Register your Account</h3>
       <form action="/register" method="POST">
-        <div class="form-group">
-          <input
-            class="form-control"
-            type="text"
-            name="name"
-            placeholder="Name"
-          />
         </div>
         <div class="form-group">
           <input
@@ -38,6 +31,7 @@
             type="email"
             name="email"
             placeholder="Email"
+            style="width: 400px; margin: 0.5em;"
           />
         </div>
         <div class="form-group">
@@ -46,6 +40,7 @@
             type="password"
             name="password"
             placeholder="Password"
+            style="width: 400px; margin: 0.5em;"
           />
         </div>
         <button type="submit" class="btn btn-primary">Register Now</button>
