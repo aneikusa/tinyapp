@@ -3,10 +3,9 @@ const app = express();
 
 const PORT = 8080; // default port 8080
 const cookieSession = require('cookie-session')
+const password = "purple-monkey-dinosaur"; // found in the req.body object
 
 const bcrypt = require("bcryptjs");
-const password = "purple-monkey-dinosaur"; // found in the req.body object
-const hashedPassword = bcrypt.hashSync(password, 10);
 
 const {
   generateRandomString,
