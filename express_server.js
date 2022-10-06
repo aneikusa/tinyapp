@@ -4,27 +4,19 @@ const app = express();
 const PORT = 8080; // default port 8080
 const cookieParser = require('cookie-parser')
 
+const bcrypt = require("bcryptjs");
+const password = "purple-monkey-dinosaur"; // found in the req.body object
+const hashedPassword = bcrypt.hashSync(password, 10);
+
 const {
   generateRandomString,
   getUserByEmail,
+  urlsForUser,
 } = require("./helper-functions");
 
 app.set("view engine", "ejs"); // setting ejs as view engine
 app.use(express.urlencoded({ extended: true })); // parse the body
 app.use(cookieParser());
-
-// function generateRandomString () {
-//   return Math.random().toString(36).slice(2);
-// }; // console.log(generateRandomString()); 
-
-// function getUserByEmail (usersObject, email) {
-//   for (const user in usersObject) {
-//     if (usersObject[user].email === email) {
-//       return usersObject[user];
-//     }
-//   }
-//   return null;
-// }; // returns object if email exists
 
 const users = {}; //object that stores user information
 
@@ -39,16 +31,22 @@ const urlDatabase = {
   },
 };
 
+
+// GET ROUTES
+
 app.get("/", (req, res) => {
-  res.send("Hello!");
+  const user = users[req.cookies["user_id"]];
+  const templateVars = {
+    user: user,
+  };
+  if (!user) { //redirect user to login if they are not logged in
+    res.redirect("/login");
+  }
+  res.redirect("/urls"); //redirects user to urls if logged in already
 });
 
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
-});
-
-app.get("/hello", (req, res) => {
-  res.send("<html><body>Hello <b>World</b></body></html>\n");
 });
 
 app.get("/urls", (req, res) => {
@@ -102,6 +100,9 @@ app.get("/login", (req, res) => {
   res.render("login", templateVars);
 });
 
+
+// URL POSTS
+
 app.post("/urls", (req, res) => {
   const id = generateRandomString();
   urlDatabase[id] = req.body.longURL;
@@ -118,6 +119,10 @@ app.post("/urls/:id/update", (req,res)=>{
   urlDatabase[idTOUpdate]=req.body.longURL;
   res.redirect("/urls");
   });
+
+
+
+  // LOGIN, LOGOUT AND REGISTER POST ROUTES
 
 app.post("/login", (req, res) => {
   if (getUserByEmail(users, req.body.email) === null) {
@@ -156,6 +161,8 @@ if (!userEmail || !userPassword) {
 }
 
 });
+
+// LISTENING PORT
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);

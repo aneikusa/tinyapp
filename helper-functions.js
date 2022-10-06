@@ -1,8 +1,8 @@
-function generateRandomString () {
+const generateRandomString = () => {
   return Math.random().toString(36).slice(2);
 }; // console.log(generateRandomString()); 
 
-function getUserByEmail (usersObject, email) {
+const getUserByEmail = (usersObject, email) => {
   for (const user in usersObject) {
     if (usersObject[user].email === email) {
       return usersObject[user];
@@ -11,4 +11,16 @@ function getUserByEmail (usersObject, email) {
   return null;
 }; // returns object if email exists
 
-module.exports = {generateRandomString, getUserByEmail};
+const urlsForUser = (userId, urlDatabase) => {
+  const urls = {};
+  for (const id in urlDatabase) {
+    const url = urlDatabase[id]
+    if (url.userID === userId) {
+      urls[id] = url;
+    }
+  }
+  return urls;
+};
+
+
+module.exports = { generateRandomString, getUserByEmail, urlsForUser};
