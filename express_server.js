@@ -119,7 +119,7 @@ app.post("/login", (req, res) => {
   res.cookie("user_id", getUserByEmail(users, req.body.email).id);
   res.redirect("/urls");
   }
-}); // login
+}); // login - made sure to double check redirect
 
 app.post("/logout", (req, res) => {
   res.clearCookie("user_id");
