@@ -4,22 +4,27 @@ const app = express();
 const PORT = 8080; // default port 8080
 const cookieParser = require('cookie-parser')
 
+const {
+  generateRandomString,
+  getUserByEmail,
+} = require("./helper-functions");
+
 app.set("view engine", "ejs"); // setting ejs as view engine
 app.use(express.urlencoded({ extended: true })); // parse the body
 app.use(cookieParser());
 
-function generateRandomString () {
-  return Math.random().toString(36).slice(2);
-}; // console.log(generateRandomString()); 
+// function generateRandomString () {
+//   return Math.random().toString(36).slice(2);
+// }; // console.log(generateRandomString()); 
 
-function getUserByEmail (usersObject, email) {
-  for (const user in usersObject) {
-    if (usersObject[user].email === email) {
-      return usersObject;
-    }
-  }
-  return null;
-}; // returns object if email exists
+// function getUserByEmail (usersObject, email) {
+//   for (const user in usersObject) {
+//     if (usersObject[user].email === email) {
+//       return usersObject[user];
+//     }
+//   }
+//   return null;
+// }; // returns object if email exists
 
 const users = {}; //object that stores user information
 
@@ -78,7 +83,15 @@ app.get("/register", (req, res) => {
     user: user,
   }
   res.render("registration", templateVars);
-})
+});
+
+app.get("/login", (req, res) => {
+  const user = users[req.cookies["user_id"]];
+  const templateVars = {
+    user: user,
+  }
+  res.render("login", templateVars);
+});
 
 app.post("/urls", (req, res) => {
   const id = generateRandomString();
@@ -98,8 +111,14 @@ app.post("/urls/:id/update", (req,res)=>{
   });
 
 app.post("/login", (req, res) => {
-  res.cookie("user_id", req.body.user_id);
+  if (getUserByEmail(users, req.body.email) === null) {
+    res.status(403).send('No accounts for this email exist');
+  } else if (getUserByEmail(users, req.body.email).password !== req.body.password) {
+    res.status(403).send('Incorrect password');
+  } else {
+  res.cookie("user_id", getUserByEmail(users, ));
   res.redirect("/urls");
+  }
 }); // login
 
 app.post("/logout", (req, res) => {
