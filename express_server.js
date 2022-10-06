@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 const users = {}; //object that stores user information
 
-const urlDatabasee = {
+const urlDatabase = {
   b6UTxQ: {
     longURL: "https://www.tsn.ca",
     userID: "aJ48lW",
@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/urls.json", (req, res) => {
-  res.json(urlDatabasee);
+  res.json(urlDatabase);
 });
 
 app.get("/hello", (req, res) => {
@@ -55,7 +55,7 @@ app.get("/urls", (req, res) => {
   const user = users[req.cookies["user_id"]];
   const templateVars = { 
     user: user,
-    urls: urlDatabasee 
+    urls: urlDatabase, 
   };
   res.render("urls_index", templateVars);
 });
