@@ -116,14 +116,14 @@ app.post("/login", (req, res) => {
   } else if (getUserByEmail(users, req.body.email).password !== req.body.password) {
     res.status(403).send('Incorrect password');
   } else {
-  res.cookie("user_id", getUserByEmail(users, ));
+  res.cookie("user_id", getUserByEmail(users, req.body.email).id);
   res.redirect("/urls");
   }
 }); // login
 
 app.post("/logout", (req, res) => {
   res.clearCookie("user_id");
-  res.redirect("/urls");
+  res.redirect("/login");
 }); // logout
 
 app.post("/register", (req, res) => {
