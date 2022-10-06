@@ -28,17 +28,23 @@ app.use(cookieParser());
 
 const users = {}; //object that stores user information
 
-const urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
-}; // database for storing URLs in short forms
+const urlDatabasee = {
+  b6UTxQ: {
+    longURL: "https://www.tsn.ca",
+    userID: "aJ48lW",
+  },
+  i3BoGr: {
+    longURL: "https://www.google.ca",
+    userID: "aJ48lW",
+  },
+};
 
 app.get("/", (req, res) => {
   res.send("Hello!");
 });
 
 app.get("/urls.json", (req, res) => {
-  res.json(urlDatabase);
+  res.json(urlDatabasee);
 });
 
 app.get("/hello", (req, res) => {
@@ -49,7 +55,7 @@ app.get("/urls", (req, res) => {
   const user = users[req.cookies["user_id"]];
   const templateVars = { 
     user: user,
-    urls: urlDatabase 
+    urls: urlDatabasee 
   };
   res.render("urls_index", templateVars);
 });
