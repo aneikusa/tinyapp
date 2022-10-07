@@ -49,13 +49,6 @@ app.get("/urls.json", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-//   const user = users[req.cookies["user_id"]];
-//   const templateVars = {
-//     user: user,
-//     urls: urlDatabase,
-//   };
-//   res.render("urls_index", templateVars);
-// });
   const userID = req.session["user_id"];
   const user = users[userID];
   const urls = urlsForUser(userID, urlDatabase);
@@ -77,14 +70,6 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.get("/urls/:id", (req, res) => {
-//   const user = users[req.cookies["user_id"]];
-//   const templateVars = {
-//     user: user,
-//     id: req.params.id,
-//     longURL: urlDatabase[req.params.id],
-//   };
-//   res.render("urls_show", templateVars);
-// });
   const userID = req.session["user_id"];
   const user = users[userID];
   const urls = urlsForUser(userID, urlDatabase);
@@ -106,9 +91,6 @@ app.get("/urls/:id", (req, res) => {
 });
 
 app.get("/u/:id", (req, res) => {
-//   const longURL = urlDatabase[req.params.id]
-//   res.redirect(longURL);
-// });
   if (urlDatabase[req.params.id] === undefined) {
     res.send("Error: Short Url cannnot be found");
     return;
@@ -160,9 +142,6 @@ app.post("/urls", (req, res) => {
 }); //redirecting to longURL
 
 app.post("/urls/:id/delete", (req, res) => {
-//   delete urlDatabase[req.params.id];
-//   res.redirect("/urls");
-// }); // delete route and redirect to urls
   const userID = req.session["user_id"];
   const user = users[userID];
   const urls = urlsForUser(userID, urlDatabase);
@@ -183,10 +162,6 @@ app.post("/urls/:id/delete", (req, res) => {
 });
 
 app.post("/urls/:id/update", (req,res)=>{
-  // let idTOUpdate = req.params.id;
-  // urlDatabase[idTOUpdate]=req.body.longURL;
-  // res.redirect("/urls");
-  // });
   const userID = req.session["user_id"];
   const user = users[userID];
   const urls = urlsForUser(userID, urlDatabase);
