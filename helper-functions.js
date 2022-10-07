@@ -1,6 +1,6 @@
 const generateRandomString = () => {
   return Math.random().toString(36).slice(2);
-}; // console.log(generateRandomString()); 
+}; // console.log(generateRandomString());
 
 const getUserByEmail = (usersObject, email) => {
   for (const user in usersObject) {
@@ -14,7 +14,7 @@ const getUserByEmail = (usersObject, email) => {
 const urlsForUser = (userId, urlDatabase) => {
   const urls = {};
   for (const id in urlDatabase) {
-    const url = urlDatabase[id]
+    const url = urlDatabase[id];
     if (url.userID === userId) {
       urls[id] = url;
     }
