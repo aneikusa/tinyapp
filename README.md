@@ -5,12 +5,16 @@ TinyApp is a full stack web application built with Node and Express that allows 
 ## Final Product
 
 ### Pages
-!["screenshot description"](#)
-!["screenshot description"](#)
+!["Create URLs"](https://github.com/aneikusa/tinyapp/blob/main/docs/create-urls-page.png)
+!["Login Page"](https://github.com/aneikusa/tinyapp/blob/main/docs/login-page.png)
+!["Registration"](https://github.com/aneikusa/tinyapp/blob/main/docs/registration-page.png)
+!["Main URLs"](https://github.com/aneikusa/tinyapp/blob/main/docs/urls-page.png)
 
 ### Error Messages
-!["screenshot description"](#)
-!["screenshot description"](#)
+!["Missing Error"](https://github.com/aneikusa/tinyapp/blob/main/docs/missing-error.png)
+!["Incorrect Pass Error"](https://github.com/aneikusa/tinyapp/blob/main/docs/incorrectpass-error.png)
+!["Email Exists Error"](https://github.com/aneikusa/tinyapp/blob/main/docs/emailexists-error.png)
+!["Not logged in"](https://github.com/aneikusa/tinyapp/blob/main/docs/notloggedin-error.png)
 
 ## Dependencies
 
